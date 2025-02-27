@@ -1,0 +1,30 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+
+    public function up(): void
+    {
+        Schema::create('vacina', function (Blueprint $table){
+
+            $table->char('idVacina', 6);
+            $table->varchar('fabricante', 100);
+            $table->varchar('nomeVacina', 100);
+            $table->integer('qtdDoses');
+
+            // Chave primária
+            $table->primary('idVacina');
+
+        });
+    }
+
+
+    public function down(): void
+    {
+        Schema::dropIfExists('vacina');
+    }
+};
