@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('etnia', 50);
             $table->boolean('planoSaude')->default(false);
 
+            // Chave primária
             $table->primary('cpfMorador');
 
         });
