@@ -18,13 +18,15 @@ return new class extends Migration
             $table->integer('doseAplicada');
             $table->string('funcionarioAplicador', 100);
 
+
+            // Chaves primárias
+            $table->primary(['cpfMorador', 'idVacina', 'idLote']);
+
             // Chaves estrangeiras
             $table->foreign('cpfMorador')->references('cpfMorador')->on('morador')->onDelete('restrict');
             $table->foreign('idVacina')->references('idVacina')->on('vacina')->onDelete('restrict');
             $table->foreign('idLote')->references('idLote')->on('lote')->onDelete('restrict');
 
-            // Chaves primárias
-            $table->primary(['cpfMorador', 'idVacina', 'idLote']);
 
 
         });

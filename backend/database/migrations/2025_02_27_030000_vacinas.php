@@ -12,8 +12,8 @@ return new class extends Migration
         Schema::create('vacina', function (Blueprint $table){
 
             $table->char('idVacina', 6);
-            $table->varchar('fabricante', 100);
-            $table->varchar('nomeVacina', 100);
+            $table->string('fabricante', 100);
+            $table->string('nomeVacina', 100);
             $table->integer('qtdDoses');
 
             // Chave primária
