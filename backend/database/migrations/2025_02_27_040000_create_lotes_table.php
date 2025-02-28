@@ -20,7 +20,7 @@ return new class extends Migration
         $table->date('validade');
 
         // Chave estrangeira
-        $table->foreign('idVacina')->references('idVacina')->on('vacina')->onDelete('cascade');
+        $table->foreign('idVacina')->references('idVacina')->on('vacinas')->onDelete('cascade');
         // usar onDelete restrict aqui??
 
         // Chave primária

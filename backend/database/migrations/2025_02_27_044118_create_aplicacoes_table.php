@@ -22,9 +22,9 @@ return new class extends Migration
             $table->primary(['cpfMorador', 'idVacina', 'idLote']);
 
             // Chaves estrangeiras
-            $table->foreign('cpfMorador')->references('cpfMorador')->on('morador')->onDelete('restrict');
-            $table->foreign('idVacina')->references('idVacina')->on('vacina')->onDelete('restrict');
-            $table->foreign('idLote')->references('idLote')->on('lote')->onDelete('restrict');
+            $table->foreign('cpfMorador')->references('cpfMorador')->on('moradores')->onDelete('restrict');
+            $table->foreign('idVacina')->references('idVacina')->on('vacinas')->onDelete('restrict');
+            $table->foreign('idLote')->references('idLote')->on('lotes')->onDelete('restrict');
 
         });
     }
