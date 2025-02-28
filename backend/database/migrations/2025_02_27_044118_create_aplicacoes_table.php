@@ -9,7 +9,7 @@ return new class extends Migration
 
     public function up(): void
     {
-        Schema::create('aplicacao', function (Blueprint $table){
+        Schema::create('aplicacoes', function (Blueprint $table){
 
             $table->char('cpfMorador', 11);
             $table->char('idVacina', 6);
@@ -17,7 +17,6 @@ return new class extends Migration
             $table->date('dataAplicacao');
             $table->integer('doseAplicada');
             $table->string('funcionarioAplicador', 100);
-
 
             // Chaves primárias
             $table->primary(['cpfMorador', 'idVacina', 'idLote']);
@@ -27,13 +26,11 @@ return new class extends Migration
             $table->foreign('idVacina')->references('idVacina')->on('vacina')->onDelete('restrict');
             $table->foreign('idLote')->references('idLote')->on('lote')->onDelete('restrict');
 
-
-
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('aplicacao');
+        Schema::dropIfExists('aplicacoes');
     }
 };
