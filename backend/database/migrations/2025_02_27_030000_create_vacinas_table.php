@@ -18,7 +18,6 @@ return new class extends Migration
 
             // Chave primária
             $table->primary('idVacina');
-
         });
     }
 

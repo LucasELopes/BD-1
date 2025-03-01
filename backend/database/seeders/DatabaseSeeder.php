@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Morador;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Vacina;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,5 +23,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Morador::factory(10)->create();
+        Vacina::factory(10)->create();
     }
 }

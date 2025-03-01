@@ -12,7 +12,10 @@ class Morador extends Model
 
     protected $table = "moradores";
     protected $primaryKey = 'cpfMorador';
-    
+    public $incrementing = 'false';
+    protected $keyType = 'string';
+    public $timestamps = false;
+
     protected $fillable = [
         "cpfMorador",
         "nmrSUS",
