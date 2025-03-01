@@ -36,7 +36,6 @@ class MoradorController extends Controller
             ->when($request->has('escolaridade'), fn ($query) => $query->orWhere('escolaridade', 'like', "%{$request['escolaridade']}%"))
             ->when($request->has('etnia'), fn ($query) => $query->orWhere('etnia', 'like', "%{$request['etnia']}%"))
             ->when($request->has('planoSaude'), fn ($query) => $query->orWhere('planoSaude', 'like', "%{$request['planoSaude']}%"))
-            ->orderBy('created_at', 'desc')
             ->paginate((int) $request->per_page);
 
         return response()->json($morador, Response::HTTP_OK);
@@ -83,5 +82,43 @@ class MoradorController extends Controller
         $morador->delete();
 
         return response()->json([], Response::HTTP_OK);
+    }
+
+    public function checar_historico(String $cpfMorador) {
+        // Precisa do relacionameto com a tabela
+    }
+
+    public function validarCpf(String $cpf)
+    {
+        $valido = false;
+        $cpf = trim($cpf);
+
+        if(strlen($cpf) == 11) {
+            $valorTotal = 0;
+            $cpfAux = array_reverse(
+                array_slice(str_split(trim($cpf)),
+                0,
+                9
+            ));
+
+            for($i = 0; $i < 9; $i++) {
+                $valorTotal += ((int)$cpfAux[$i]) * ($i+2);
+            }
+
+            $resto = 11 - ($valorTotal % 11);
+            $cpfAux = array_merge_recursive( [$resto <= '1' ? '0' : "$resto"], $cpfAux);
+            $valorTotal = 0;
+
+            for($i = 0; $i < 10; $i++) {
+                $valorTotal += ((int)$cpfAux[$i]) * ($i+2);
+            }
+
+            $resto = 11 - ($valorTotal % 11);
+            $cpfAux = array_reverse(array_merge_recursive( [$resto <= '1' ? '0' : "$resto"], $cpfAux));
+
+            $valido = implode($cpfAux) == $cpf ?? true;
+        }
+
+        return response()->json($valido, Response::HTTP_OK);
     }
 }

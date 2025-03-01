@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('moradores', function (Blueprint $table){
 
-            $table->char('cpfMorador', 11)->unique();
+            $table->char('cpfMorador', 11);
             $table->char('nmrSUS', 15);
             $table->string('nomeMorador', 100);
             $table->string('nomeMae', 100);
@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('escolaridade', 50);
             $table->string('etnia', 50);
             $table->boolean('planoSaude')->default(false);
-            $table->timestamps();
 
             $table->primary('cpfMorador');
         });
