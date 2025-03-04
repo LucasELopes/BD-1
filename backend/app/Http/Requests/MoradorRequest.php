@@ -47,7 +47,7 @@ class MoradorRequest extends FormRequest
         }
 
         if($this->isMethod('put')) {
-            $postRules = [
+            $putRules = [
                 'cpfMorador' => ['sometimes'],
                 'nomeMorador' => ['sometimes']
             ];

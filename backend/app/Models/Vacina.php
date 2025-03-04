@@ -23,4 +23,8 @@ class Vacina extends Model
         "qtdDoses"
     ];
 
+    public function lotes() {
+        return $this->hasMany(Lote::class, 'idVacina', 'idVacina');
+    }
+
 }

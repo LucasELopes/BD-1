@@ -11,21 +11,16 @@ return new class extends Migration
     {
         Schema::create('lotes', function (Blueprint $table){
 
-        $table->char('idLote', 6);
-        $table->char('idVacina', 6);
-        $table->date('dataEntrada');
-        $table->integer('qtdOriginal');
-        $table->integer('qtdDisponivel');
-        $table->string('statusVencimento', 50);
-        $table->date('validade');
+            $table->char('idLote', 6);
+            $table->char('idVacina', 6);
+            $table->integer('qtdRecebida');
+            $table->integer('qtdDisponivel');
+            $table->date('validade');
 
-        // Chave estrangeira
-        $table->foreign('idVacina')->references('idVacina')->on('vacinas')->onDelete('cascade');
-        // usar onDelete restrict aqui??
+            $table->foreign('idVacina')->references('idVacina')->on('vacinas')->onDelete('restrict');
 
-        // Chave primária
-        $table->primary('idLote');
-
+            $table->primary(['idLote', 'idVacina']);
+            
         });
     }
 

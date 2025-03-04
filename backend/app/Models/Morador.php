@@ -30,4 +30,8 @@ class Morador extends Model
         "planoSaude"
     ];
 
+    public function aplicaccoes() {
+        return $this->hasMany(Morador::class,"","");
+    }
+
 }

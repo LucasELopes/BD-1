@@ -44,7 +44,7 @@ class MoradorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(MoradorRequest $request): JsonResponse
+    public function cadastrarMorador(MoradorRequest $request): JsonResponse
     {
         $data = $request->validated();
         $morador = $this->morador->create($data);
@@ -76,7 +76,7 @@ class MoradorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(String $id)
+    public function destroy(String $id): JsonResponse
     {
         $morador = $this->morador->findOrFail( $id );
         $morador->delete();
@@ -88,9 +88,9 @@ class MoradorController extends Controller
         // Precisa do relacionameto com a tabela
     }
 
-    public function validarCpf(String $cpf)
+    public function validarCpf(String $cpf): JsonResponse
     {
-        $valido = false;
+        $cpfValido = false;
         $cpf = trim($cpf);
 
         if(strlen($cpf) == 11) {
@@ -116,9 +116,9 @@ class MoradorController extends Controller
             $resto = 11 - ($valorTotal % 11);
             $cpfAux = array_reverse(array_merge_recursive( [$resto <= '1' ? '0' : "$resto"], $cpfAux));
 
-            $valido = implode($cpfAux) == $cpf ?? true;
+            $cpfValido = implode($cpfAux) == $cpf ?? true;
         }
 
-        return response()->json($valido, Response::HTTP_OK);
+        return response()->json($cpfValido, Response::HTTP_OK);
     }
 }
