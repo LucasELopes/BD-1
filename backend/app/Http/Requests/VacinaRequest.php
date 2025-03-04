@@ -26,7 +26,7 @@ class VacinaRequest extends FormRequest
         $putRules = [];
 
         $rules = [
-            'idVacina' => ['string', 'min:6', 'max:6'],
+            'idVacina' => ['string', 'unique:vacinas,idVacina', 'min:6', 'max:6'],
             'fabricante' => ['string', 'max:100'],
             'nomeVacina' => ['string', 'max:100'],
             'qtdDoses' => ['numeric', 'min:0'],
@@ -39,7 +39,7 @@ class VacinaRequest extends FormRequest
         }
 
         if($this->isMethod('put')) {
-            $postRules = [
+            $putRules = [
                 'idVacina' => ['sometimes'],
             ];
         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\VacinaRequest;
 use App\Models\Vacina;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -19,7 +20,7 @@ class VacinaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $vacina = Vacina::query()
         ->when($request->has('idVacina'), fn ($query) => $query->orWhere('idVacina', 'like', "%{$request['idVacina']}%"))
@@ -28,13 +29,13 @@ class VacinaController extends Controller
         ->when($request->has('qtdDoses'), fn ($query) => $query->orWhere('qtdDoses', 'like', "%{$request['qtdDoses']}%"))
         ->paginate((int) $request->per_page);
 
-    return response()->json($vacina, Response::HTTP_OK);
+        return response()->json($vacina, Response::HTTP_OK);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function registrarVacina(VacinaRequest $request)
+    public function registrarVacina(VacinaRequest $request): JsonResponse
     {
         $data = $request->validated();
         $vacina = $this->vacina->create($data);
@@ -45,7 +46,7 @@ class VacinaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(String $id)
+    public function show(String $id): JsonResponse
     {
         $vacina = $this->vacina->findOrFail($id);
         return response()->json($vacina, Response::HTTP_OK);
@@ -54,7 +55,7 @@ class VacinaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(VacinaRequest $request, String $id)
+    public function update(VacinaRequest $request, String $id): JsonResponse
     {
         $data = $request->validated();
         $vacina = $this->vacina->findOrFail($id);
@@ -66,7 +67,7 @@ class VacinaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(String $id)
+    public function destroy(String $id): JsonResponse
     {
         $vacina = $this->vacina->findOrFail($id);
         $vacina->delete();
