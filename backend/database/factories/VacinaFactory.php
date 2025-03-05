@@ -17,7 +17,7 @@ class VacinaFactory extends Factory
     public function definition(): array
     {
         $fabricante = [
-            "Pfizer", "Moderna", "AstraZeneca", "Johnson & Johnson (Janssen)",
+            "Pfizer", "Moderna", "AstraZeneca", "Johnson&Johnson",
             "Sinovac","Sinopharm","Novavax","Sanofi Pasteur","GlaxoSmithKline","Bharat Biotech"
         ];
 
@@ -30,7 +30,7 @@ class VacinaFactory extends Factory
         ];
 
         return [
-            "idVacina" => $this->faker->unique()->regexify('[A-Z0-9]{6}'),
+            "idVacina" => $this->faker->unique()->regexify('[A-Z0-9]{15}'),
             "fabricante" => $this->faker->randomElement($fabricante),
             "nomeVacina" => $this->faker->randomElement($vacinas),
             "qtdDoses" => $this->faker->numberBetween(),
