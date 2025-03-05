@@ -26,7 +26,7 @@ class LoteRequest extends FormRequest
         $putRules = [];
 
         $rules = [
-            'idLote'=> ['string', 'unique:lotes,idLote'],
+            'idLote'=> ['string', 'unique:lotes,idLote', 'max:15'],
             'idVacina'=> ['string', 'exists:vacinas,idVacina'],
             'validade'=> ['date'],
             'qtdRecebida' => ['numeric', 'min: 0'],
@@ -61,6 +61,7 @@ class LoteRequest extends FormRequest
         return [
             'idLote.string' => 'O ID do lote deve ser um texto.',
             'idLote.unique' => 'Este ID de lote já está cadastrado.',
+            'idLote.max' => 'O idLote deve ter exatamente 15 dígitos.',
 
             'idVacina.string' => 'O ID da vacina deve ser um texto.',
             'idVacina.exists' => 'A vacina informada não existe no sistema.',

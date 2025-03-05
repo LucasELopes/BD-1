@@ -19,7 +19,7 @@ class LoteFactory extends Factory
     {
 
         return [
-            'idLote'=> $this->faker->unique()->regexify('[A-Z0-9]{6}'),
+            'idLote'=> $this->faker->unique()->regexify('[A-Z0-9]{15}'),
             'idVacina'=> Vacina::all()->random()->idVacina,
             'validade'=>
                 $this->faker

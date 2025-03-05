@@ -11,8 +11,8 @@ return new class extends Migration
     {
         Schema::create('lotes', function (Blueprint $table){
 
-            $table->char('idLote', 6);
-            $table->char('idVacina', 6);
+            $table->string('idLote', 15);
+            $table->string('idVacina', 15);
             $table->integer('qtdRecebida');
             $table->integer('qtdDisponivel');
             $table->date('validade');
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreign('idVacina')->references('idVacina')->on('vacinas')->onDelete('restrict');
 
             $table->primary(['idLote', 'idVacina']);
-            
+
         });
     }
 

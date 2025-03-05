@@ -33,8 +33,8 @@ class MoradorRequest extends FormRequest
             'sexo' => ['string',' min:1', 'max: 1'],
             'endereco' => ['string', 'max:255'],
             'estadoCivil' => ['string', 'max:20'],
-            'escolaridade' => ['string', 'max:50'],
-            'etnia' => ['string', 'max:50'],
+            'escolaridade' => ['string', 'max:35'],
+            'etnia' => ['string', 'max:15'],
             'planoSaude' => ['boolean'],
             'dataNascimento' => ['date']
         ];
@@ -42,14 +42,32 @@ class MoradorRequest extends FormRequest
         if($this->isMethod('post')) {
             $postRules = [
                 'cpfMorador' => ['required'],
-                'nomeMorador' => ['required']
+                'nmrSUS'=> ['required'],
+                'nomeMorador' => ['required'],
+                'nomeMae'=> ['required'],
+                'sexo'=> ['required'],
+                'endereco'=> ['required'],
+                'estadoCivil'=> ['required'],
+                'escolaridade'=> ['required'],
+                'etnia'=> ['required'],
+                'planoSaude'=> ['required'],
+                'dataNascimento'=> ['required'],
             ];
         }
 
         if($this->isMethod('put')) {
             $putRules = [
                 'cpfMorador' => ['sometimes'],
-                'nomeMorador' => ['sometimes']
+                'nmrSUS'=> ['sometimes'],
+                'nomeMorador' => ['sometimes'],
+                'nomeMae'=> ['sometimes'],
+                'sexo'=> ['sometimes'],
+                'endereco'=> ['sometimes'],
+                'estadoCivil'=> ['sometimes'],
+                'escolaridade'=> ['sometimes'],
+                'etnia'=> ['sometimes'],
+                'planoSaude'=> ['sometimes'],
+                'dataNascimento'=> ['sometimes'],
             ];
         }
 
@@ -87,10 +105,10 @@ class MoradorRequest extends FormRequest
             'estadoCivil.max' => 'O estado civil não pode ter mais de 20 caracteres.',
 
             'escolaridade.string' => 'A escolaridade deve ser uma string.',
-            'escolaridade.max' => 'A escolaridade não pode ter mais de 50 caracteres.',
+            'escolaridade.max' => 'A escolaridade não pode ter mais de 35 caracteres.',
 
             'etnia.string' => 'A etnia deve ser uma string.',
-            'etnia.max' => 'A etnia não pode ter mais de 50 caracteres.',
+            'etnia.max' => 'A etnia não pode ter mais de 15 caracteres.',
 
             'planoSaude.boolean' => 'O campo plano de saúde deve ser verdadeiro ou falso.',
 

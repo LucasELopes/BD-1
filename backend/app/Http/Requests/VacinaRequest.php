@@ -26,21 +26,27 @@ class VacinaRequest extends FormRequest
         $putRules = [];
 
         $rules = [
-            'idVacina' => ['string', 'unique:vacinas,idVacina', 'min:6', 'max:6'],
-            'fabricante' => ['string', 'max:100'],
-            'nomeVacina' => ['string', 'max:100'],
+            'idVacina' => ['string', 'unique:vacinas,idVacina', 'min:15', 'max:15'],
+            'fabricante' => ['string', 'max:15'],
+            'nomeVacina' => ['string', 'max:20'],
             'qtdDoses' => ['numeric', 'min:0'],
         ];
 
         if($this->isMethod('post')) {
             $postRules = [
                 'idVacina' => ['required'],
+                'fabricante' => ['required'],
+                'nomeVacina' => ['required'],
+                'qtdDoses' => ['required'],
             ];
         }
 
         if($this->isMethod('put')) {
             $putRules = [
                 'idVacina' => ['sometimes'],
+                'fabricante' => ['sometimes'],
+                'nomeVacina' => ['sometimes'],
+                'qtdDoses' => ['sometimes'],
             ];
         }
 
@@ -52,14 +58,14 @@ class VacinaRequest extends FormRequest
         return [
             'idVacina.required' => 'O campo ID da vacina é obrigatório.',
             'idVacina.string' => 'O campo ID da vacina deve ser uma string.',
-            'idVacina.min' => 'O campo ID da vacina deve ter exatamente 6 caracteres.',
-            'idVacina.max' => 'O campo ID da vacina deve ter exatamente 6 caracteres.',
+            'idVacina.min' => 'O campo ID da vacina deve ter exatamente 15 caracteres.',
+            'idVacina.max' => 'O campo ID da vacina deve ter exatamente 15 caracteres.',
 
             'fabricante.string' => 'O fabricante deve ser uma string.',
-            'fabricante.max' => 'O fabricante pode ter no máximo 100 caracteres.',
+            'fabricante.max' => 'O fabricante pode ter no máximo 15 caracteres.',
 
             'nomeVacina.string' => 'O nome da vacina deve ser uma string.',
-            'nomeVacina.max' => 'O nome da vacina pode ter no máximo 100 caracteres.',
+            'nomeVacina.max' => 'O nome da vacina pode ter no máximo 20 caracteres.',
 
             'qtdDoses.numeric' => 'A quantidade de doses deve ser um número.',
             'qtdDoses.min' => 'A quantidade de doses não pode ser negativa.',

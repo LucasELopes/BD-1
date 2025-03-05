@@ -17,7 +17,7 @@ class MoradorFactory extends Factory
     public function definition(): array
     {
         return [
-            "cpfMorador" => $this->faker->randomNumber(9) .''. $this->faker->randomNumber(2),
+            "cpfMorador" => $this->faker->randomNumber(9) ."". $this->faker->randomNumber(2),
             "nmrSUS" => $this->faker->randomNumber(9) ."". $this->faker->randomNumber(6),
             "nomeMorador" => $this->faker->name(),
             "nomeMae" => $this->faker->name("female"),
