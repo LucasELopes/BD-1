@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoteController;
 use App\Http\Controllers\MoradorController;
 use App\Http\Controllers\VacinaController;
+use App\Http\Controllers\AplicacaoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +31,8 @@ Route::prefix('lotes')->group(function () {
     Route::put('/registrar-saida-vacina', [LoteController::class, 'registrarSaidaVacina']);
 });
 Route::apiResource('/lotes', LoteController::class)->except('store', 'index');
+
+// Rota Aplicacao
+Route::post('/aplicacoes/aplicar-vacina', [AplicacaoController::class, 'aplicarVacina']);
+
+Route::apiResource('/aplicacoes', AplicacaoController::class)->except('store');
