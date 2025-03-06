@@ -84,8 +84,9 @@ class MoradorController extends Controller
         return response()->json([], Response::HTTP_OK);
     }
 
-    public function checar_historico(String $cpfMorador) {
-        // Precisa do relacionameto com a tabela
+    public function checarHistorico(String $cpfMorador): JsonResponse {
+        $morador = $this->morador->with('aplicacoes')->findOrFail($cpfMorador);
+        return response()->json($morador, Response::HTTP_OK);
     }
 
     public function validarCpf(String $cpf): JsonResponse

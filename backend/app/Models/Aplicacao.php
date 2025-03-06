@@ -11,13 +11,11 @@ class Aplicacao extends Model
 
     public $timestamps = false;
     protected $table = 'aplicacoes';
-
-    // protected $keytype = 'int';
-    // protected $primaryKey = 'id';
-    // //public $incrementing = true;
+    protected $keytype = 'string';
+    protected $primaryKey = 'cpfMorador';
+    public $incrementing = false;
 
     protected $fillable = [
-        'id',
         'cpfMorador',
         'idVacina',
         'idLote',
@@ -26,16 +24,15 @@ class Aplicacao extends Model
     ];
 
     public function morador(){
-        return $this->belongsTo(Morador::class, 'cpfMorador');
-
+        return $this->belongsTo(Morador::class, 'cpfMorador', 'cpfMorador');
     }
 
     public function vacina() {
-        return $this->belongsTo(Vacina::class, 'idVacina');
+        return $this->belongsTo(Vacina::class, 'idVacina', 'idVacina');
     }
 
     public function lote() {
-        return $this->belongsTo(Lote::class, 'idLote');
+        return $this->belongsTo(Lote::class, 'idLote', 'idLote');
     }
 }
 

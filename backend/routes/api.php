@@ -11,10 +11,11 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-// Rota moradores
+// Rotas moradores
 Route::prefix('moradores')->group(function () {
     Route::get('/validarCpf/{cpf}', [MoradorController::class, 'validarCpf']);
     Route::post('/cadastrar-morador', [MoradorController::class, 'cadastrarMorador']);
+    Route::get('/checar-historico/{cpfMorador}', [MoradorController::class, 'checarHistorico']);
 });
 Route::apiResource('/moradores', MoradorController::class)->except('store');
 
@@ -32,7 +33,6 @@ Route::prefix('lotes')->group(function () {
 });
 Route::apiResource('/lotes', LoteController::class)->except('store', 'index');
 
-// Rota Aplicacao
+// Rotas Aplicacao
 Route::post('/aplicacoes/aplicar-vacina', [AplicacaoController::class, 'aplicarVacina']);
-
 Route::apiResource('/aplicacoes', AplicacaoController::class)->except('store');

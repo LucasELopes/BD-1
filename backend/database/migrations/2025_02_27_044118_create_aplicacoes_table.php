@@ -11,7 +11,6 @@ return new class extends Migration
     {
         Schema::create('aplicacoes', function (Blueprint $table){
 
-            $table->id();
             $table->string('cpfMorador', 11);
             $table->string('idVacina', 15);
             $table->string('idLote', 15);

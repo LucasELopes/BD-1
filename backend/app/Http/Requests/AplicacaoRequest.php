@@ -27,12 +27,11 @@ class AplicacaoRequest extends FormRequest
         $putRules = [];
 
         $rules = [
-            'cpfMorador' => ['required', 'string', 'exists:moradores,cpfMorador'],
-            'idVacina' => ['required', 'string', 'exists:vacinas,idVacina'],
-            'idLote' => ['required', 'string', 'exists:lotes,idLote'],
-            'dataAplicacao' => ['required', 'date'],
-            'doseAplicada' => ['required', 'integer', 'min:1']
-
+            'cpfMorador' => ['string', 'exists:moradores,cpfMorador'],
+            'idVacina' => ['string', 'exists:vacinas,idVacina'],
+            'idLote' => ['string', 'exists:lotes,idLote'],
+            'dataAplicacao' => ['date'],
+            'doseAplicada' => ['integer', 'min:1']
         ];
 
         if($this->isMethod('post')) {
