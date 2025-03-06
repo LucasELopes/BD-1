@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Aplicacao;
 use App\Models\Lote;
 use App\Models\Morador;
 use App\Models\User;
@@ -26,5 +27,6 @@ class DatabaseSeeder extends Seeder
         Morador::factory(10)->create();
         Vacina::factory(10)->create();
         Lote::factory(30)->create();
+        Aplicacao::factory(10)->create();
     }
 }
