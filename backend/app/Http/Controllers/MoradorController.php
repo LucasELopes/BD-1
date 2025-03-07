@@ -25,6 +25,7 @@ class MoradorController extends Controller
     public function index(Request $request): JsonResponse
     {
         $morador = Morador::query()
+            ->with('aplicacoes')
             ->when($request->has('cpfMorador'), fn ($query) => $query->orWhere('cpfMorador', 'like', "%{$request['cpfMorador']}%"))
             ->when($request->has('nmrSUS'), fn ($query) => $query->orWhere('nmrSUS', 'like', "%{$request['nmrSUS']}%"))
             ->when($request->has('nomeMorador'), fn ($query) => $query->orWhere('nomeMorador', 'like', "%{$request['nomeMorador']}%"))
@@ -48,16 +49,15 @@ class MoradorController extends Controller
     {
         $data = $request->validated();
         $morador = $this->morador->create($data);
-
         return response()->json($morador, Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(String $cpfMorador): JsonResponse
+    public function checarHistorico(String $cpfMorador): JsonResponse
     {
-        $morador = $this->morador->findOrFail($cpfMorador);
+        $morador = $this->morador->with('aplicacoes')->findOrFail($cpfMorador);
         return response()->json($morador, Response::HTTP_OK);
     }
 
@@ -67,7 +67,7 @@ class MoradorController extends Controller
     public function update(MoradorRequest $request, String $cpfMorador): JsonResponse
     {
         $data = $request->validated();
-        $morador = $this->morador->findOrFail($cpfMorador);
+        $morador = $this->morador->with('aplicacoes')->findOrFail($cpfMorador);
         $morador->update($data);
 
         return response()->json($morador, Response::HTTP_OK);
@@ -82,11 +82,6 @@ class MoradorController extends Controller
         $morador->delete();
 
         return response()->json([], Response::HTTP_OK);
-    }
-
-    public function checarHistorico(String $cpfMorador): JsonResponse {
-        $morador = $this->morador->with('aplicacoes')->findOrFail($cpfMorador);
-        return response()->json($morador, Response::HTTP_OK);
     }
 
     public function validarCpf(String $cpf): JsonResponse

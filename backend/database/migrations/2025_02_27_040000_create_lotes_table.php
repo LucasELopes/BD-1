@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('qtdDisponivel');
             $table->date('validade');
 
-            $table->foreign('idVacina')->references('idVacina')->on('vacinas')->onDelete('restrict');
+            $table->foreign('idVacina')->references('idVacina')->on('vacinas')->restrictOnDelete()->cascadeOnUpdate();
 
             $table->primary(['idLote', 'idVacina']);
 

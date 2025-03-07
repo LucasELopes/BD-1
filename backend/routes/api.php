@@ -13,11 +13,11 @@ Route::get('/user', function (Request $request) {
 
 // Rotas moradores
 Route::prefix('moradores')->group(function () {
-    Route::get('/validarCpf/{cpf}', [MoradorController::class, 'validarCpf']);
+    Route::get('/validar-cpf/{cpf}', [MoradorController::class, 'validarCpf']);
     Route::post('/cadastrar-morador', [MoradorController::class, 'cadastrarMorador']);
     Route::get('/checar-historico/{cpfMorador}', [MoradorController::class, 'checarHistorico']);
 });
-Route::apiResource('/moradores', MoradorController::class)->except('store');
+Route::apiResource('/moradores', MoradorController::class)->except('store', 'show');
 
 // Rotas vacinas
 Route::post('/vacinas/registrar-vacina', [VacinaController::class, 'registrarVacina']);
@@ -25,11 +25,9 @@ Route::apiResource('/vacinas', VacinaController::class)->except('store');
 
 // Rotas lotes
 Route::prefix('lotes')->group(function () {
-    Route::post('/registrar-entrada-vacina', [LoteController::class, 'registrarEntradaVacina']);
+    Route::post('/registrar-entrada', [LoteController::class, 'registrarEntrada']);
     Route::get('/emitir-relatorio-estoque', [LoteController::class, 'emitirRelatorioEstoque']);
-    Route::get('/verificar-validade/{id}', [LoteController::class, 'verificar_validade']);
-    Route::get('/excluir-lote-vencido', [LoteController::class, 'excluirLoteVencido']);
-    Route::put('/registrar-saida-vacina', [LoteController::class, 'registrarSaidaVacina']);
+    Route::delete('/excluir-lote-vencido', [LoteController::class, 'excluirLoteVencido']);
 });
 Route::apiResource('/lotes', LoteController::class)->except('store', 'index');
 

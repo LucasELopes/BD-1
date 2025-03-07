@@ -16,11 +16,9 @@ return new class extends Migration
             $table->string('idLote', 15);
             $table->date('dataAplicacao');
             $table->integer('doseAplicada');
-
             $table->foreign('cpfMorador')->references('cpfMorador')->on('moradores')->onDelete('restrict');
-            $table->foreign('idVacina')->references('idVacina')->on('vacinas')->onDelete('restrict');
-            $table->foreign('idLote')->references('idLote')->on('lotes')->onDelete('restrict');
 
+            $table->foreign(['idLote', 'idVacina'])->references(['idLote', 'idVacina'])->on('lotes')->restrictOnDelete();
         });
     }
 

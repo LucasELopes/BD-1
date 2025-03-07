@@ -9,7 +9,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('moradores', function (Blueprint $table){
-
             $table->string('cpfMorador', 11);
             $table->string('nmrSUS', 15);
             $table->string('nomeMorador', 100);

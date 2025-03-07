@@ -23,14 +23,20 @@ class AplicacaoFactory extends Factory
         return [
             'cpfMorador' => Morador::all()->random()->cpfMorador,
 
-            'idVacina' => Vacina::all()->random()->idVacina,
+            'idLote' => function () {
+                $lote = Lote::all()->random()->first();
+                return $lote ? $lote->idLote : null;
+            },
 
-            'idLote' => Lote::all()->random()->idLote,
+            'idVacina' => function (array $attributes) {
+                $lote = Lote::where('idLote', $attributes['idLote'])->first();
+                return $lote ? $lote->idVacina : null;
+            },
 
             'dataAplicacao' => $this->faker->dateTimeBetween('-5 years', 'now')->format('Y-m-d'),
 
             'doseAplicada' => $this->faker->numberBetween(1, 4)
-
         ];
+
     }
 }

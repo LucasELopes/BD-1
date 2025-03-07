@@ -37,7 +37,7 @@ class LoteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function registrarEntradaVacina(LoteRequest $request)
+    public function registrarEntrada(LoteRequest $request)
     {
         $data = $request->validated();
         $lote = $this->lote->create($data);
@@ -102,7 +102,6 @@ class LoteController extends Controller
                 $lote->delete();
             }
         }
-
         return response()->json($lotes, Response::HTTP_OK);
     }
 }
