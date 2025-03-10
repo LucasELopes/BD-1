@@ -106,7 +106,7 @@
                         <TableCell>{{ lote.idVacina }}</TableCell>
                         <TableCell>{{ lote.qtdDisponivel }}</TableCell>
                         <TableCell class="text-right">
-                            {{ lote.validade }}
+                            {{ dataFormat(lote.validade) }}
                         </TableCell>
                     </TableRow>
                 </TableBody>
@@ -114,7 +114,7 @@
         </div>
 
 
-        <div class="flex gap-14 h-[900px] ">
+        <div class="flex gap-14 h-[870px] ">
             <form @submit.prevent="cadastraMorador"
                 class="p-4 flex flex-col gap-y-3 justify-center items-center rounded-lg [&>div]:flex [&>div]:w-full [&>div]:flex-col [&>div]:gap-y-1 w-[30%] bg-[#e3f6f5] text-[#272343] font-semibold shadow-md shadow-[#272343]/20">
                 <h1 class="text-xl">Morador</h1>
@@ -200,7 +200,7 @@
                         <TableCell>{{ morador.nomeMorador }}</TableCell>
                         <TableCell>{{ morador.nmrSUS }}</TableCell>
                         <TableCell class="text-right">
-                            {{ morador.dataNascimento }}
+                            {{ dataFormat(morador.dataNascimento) }}
                         </TableCell>
                     </TableRow>
                 </TableBody>
@@ -208,6 +208,68 @@
         </div>
 
 
+        <div class="flex gap-14 h-[450px] ">
+            <form @submit.prevent="cadastraAplicacao"
+                class="p-4 flex flex-col gap-y-3 justify-center items-center rounded-lg [&>div]:flex [&>div]:w-full [&>div]:flex-col [&>div]:gap-y-1 w-[30%] bg-[#e3f6f5] text-[#272343] font-semibold shadow-md shadow-[#272343]/20">
+                <h1 class="text-xl">Aplicação</h1>
+                <div>
+                    <label for="">CPF do Morador</label>
+                    <input type="text" v-model="cpfMoradorAplicacao" class="w-[85%] h-7 pl-3 bg-[#fffffe] rounded-md"></input>
+                </div>
+
+                <div>
+                    <label for="">ID Lote </label>
+                    <input type="text" v-model="idLoteAplicacao" class="w-[85%] h-7 pl-3 bg-[#fffffe] rounded-md"></input>
+                </div>
+
+                <div>
+                    <label for="">ID Vacina</label>
+                    <input type="text" v-model="idVacinaAplicacao" class="w-[85%] h-7 pl-3 bg-[#fffffe] rounded-md"></input>
+                </div>
+
+                <div>
+                    <label for="">Data da Aplicação</label>
+                    <input type="date" v-model="dataAplicacao" class="w-[85%] h-7 pl-3 bg-[#fffffe] rounded-md"></input>
+                </div>
+
+                <div>
+                    <label for="">Dose</label>
+                    <input type="text" v-model="doseAplicada" class="w-[85%] h-7 pl-3 bg-[#fffffe] rounded-md"></input>
+                </div>
+
+
+                <button type="submit" class="w-[40%] h-7 rounded-md bg-[#ffd803]">Enviar</button>
+            </form>
+
+            <Table class="bg-[#e3f6f5] rounded-md shadow-lg">
+                <TableHeader>
+                    <TableRow>
+                        <TableHead class="w-[100px]">
+                            CPF
+                        </TableHead>
+                        <TableHead>Vacina</TableHead>
+                        <TableHead>Lote</TableHead>
+                        <TableHead>Data da Aplicação</TableHead>
+                        <TableHead class="text-right">
+                            Dose aplicada
+                        </TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    <TableRow v-for="aplicacao in aplicacoes.data._rawValue.data" :key="aplicacao.idVacina">
+                        <TableCell class="font-medium">
+                            {{ aplicacao.cpfMorador }}
+                        </TableCell>
+                        <TableCell>{{ aplicacao.vacina.nomeVacina }}</TableCell>
+                        <TableCell>{{ aplicacao.idLote }}</TableCell>
+                        <TableCell>{{ dataFormat(aplicacao.dataAplicacao) }}</TableCell>
+                        <TableCell class="text-right">
+                            {{ aplicacao.doseAplicada  }}
+                        </TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+        </div>
 
 
 
@@ -235,6 +297,9 @@ const lotes = await useFetch('http://127.0.0.1:8000/api/lotes/emitir-relatorio-e
 
 const moradores = await useFetch('http://127.0.0.1:8000/api/moradores');
 
+const aplicacoes = await useFetch('http://127.0.0.1:8000/api/aplicacoes');
+
+
 
 const idVacinaVacina = ref('');
 const nomeVacina = ref('');
@@ -258,6 +323,12 @@ const estadoCivil = ref('');
 const escolaridade = ref('');
 const etnia = ref('');
 const planoSaude = ref('');
+
+const cpfMoradorAplicacao = ref('');
+const idVacinaAplicacao = ref('');
+const idLoteAplicacao = ref('');
+const dataAplicacao = ref('');
+const doseAplicada = ref('');
 
 async function cadastraVacina() {
     await useFetch('http://127.0.0.1:8000/api/vacinas/registrar-vacina', {
@@ -306,7 +377,7 @@ async function cadastraLote() {
 }
 
 async function cadastraMorador() {
-    const response = await useFetch('http://127.0.0.1:8000/api/moradores/cadastrar-morador', {
+    await useFetch('http://127.0.0.1:8000/api/moradores/cadastrar-morador', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: {
@@ -327,20 +398,52 @@ async function cadastraMorador() {
         }
     })
 
-    console.log(response);
-    // cpfMoradorMorador.value = '';
-    // numeroSus.value = '';
-    // nomeMorador.value = '';
-    // nomeMae.value = '';
-    // sexo.value = '';
-    // endereco.value = '';
-    // estadoCivil.value = '';
-    // escolaridade.value = '';
-    // etnia.value = '';
-    // planoSaude.value = '';
-    // dataNascimento.value = '';
+
+    cpfMoradorMorador.value = '';
+    numeroSus.value = '';
+    nomeMorador.value = '';
+    nomeMae.value = '';
+    sexo.value = '';
+    endereco.value = '';
+    estadoCivil.value = '';
+    escolaridade.value = '';
+    etnia.value = '';
+    planoSaude.value = '';
+    dataNascimento.value = '';
 
 
 
+}
+
+async function cadastraAplicacao() {
+    await useFetch('http://127.0.0.1:8000/api/aplicacoes/aplicar-vacina', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: {
+            idVacina: idVacinaAplicacao.value,
+            idLote: idLoteAplicacao.value,
+            dataAplicacao: dataAplicacao.value,
+            doseAplicada: doseAplicada.value,
+            cpfMorador: cpfMoradorAplicacao.value
+
+
+
+        }
+    })
+
+    idVacinaAplicacao.value = '';
+    idLoteAplicacao.value = '';
+    dataAplicacao.value = '';
+    doseAplicada.value = '';
+    cpfMoradorAplicacao.value = '';
+
+
+
+}
+
+function dataFormat(data){
+    const div = data.split('-');
+
+    return `${div[2]}-${div[1]}-${div[0]}`
 }
 </script>
