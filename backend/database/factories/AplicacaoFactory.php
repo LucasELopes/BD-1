@@ -23,10 +23,7 @@ class AplicacaoFactory extends Factory
         return [
             'cpfMorador' => Morador::all()->random()->cpfMorador,
 
-            'idLote' => function () {
-                $lote = Lote::all()->random()->first();
-                return $lote ? $lote->idLote : null;
-            },
+            'idLote' => Lote::all()->random()->idLote,
 
             'idVacina' => function (array $attributes) {
                 $lote = Lote::where('idLote', $attributes['idLote'])->first();
